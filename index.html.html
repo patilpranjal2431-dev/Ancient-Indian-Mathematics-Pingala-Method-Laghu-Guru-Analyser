@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vedic Prosody Toolkit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Noto Serif Devanagari',serif;
+background:linear-gradient(rgba(20,15,10,0.75),rgba(20,15,10,0.75)),
+url('https://i.ibb.co/r2LMnVXn/celebrating-ugadi-with-a-flatlay-of-traditions-and-symbols-on-a-soft-background-free-photo.jpg');
+background-size:cover;
+color:#3b2f2f;
+}
+.info-tabs{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.info-tabs button{
+flex:1;
+padding:10px;
+background:#92400e;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.info-content{
+display:none;
+line-height:1.6;
+}
+
+.active-info{
+display:block;
+}
+.pingala-img{
+text-align:center;
+margin:15px 0;
+}
+
+.pingala-img img{
+max-width:180px;
+border-radius:12px;
+border:2px solid #d97706;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+/* HERO */
+.hero{
+text-align:center;
+padding:30px;
+color:#facc15;
+}
+.hero h1{
+font-size:42px;
+margin:0;
+font-family:'Poppins';
+}
+.hero p{color:#fde68a;}
+
+
+/* NAVBAR */
+.navbar{
+display:flex;
+justify-content:center;
+gap:25px;
+background:black;
+padding:12px;
+font-family:'Poppins';
+}
+.navbar span{
+color:#facc15;
+cursor:pointer;
+font-weight:600;
+
+}
+.navbar span:hover{
+color:#fde68a;
+}
+
+.navbar span.active-tab{
+border-bottom:2px solid #facc15;
+}
+
+
+/* SECTION */
+.section{
+display:none;
+max-width:900px;
+margin:25px auto;
+padding:25px;
+border-radius:16px;
+
+/* CLEAN PARCHEMENT LOOK */
+background:#fdf6e3;
+
+/* SOFT SHADOW */
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+
+/* SUBTLE BORDER */
+border:1px solid #e6d3a3;
+}
+.active{display:block;}
+
+/* INPUT */
+textarea,input{
+width:100%;
+padding:10px;
+margin-top:10px;
+}
+textarea, input{
+background:#fff;
+border:1px solid #d6b36a;
+border-radius:8px;
+}
+
+
+
+
+
+/* BUTTON */
+button{
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#d97706;
+color:white;
+border:none;
+border-radius:8px;
+}
+
+/* RESULT */
+.result{
+margin-top:10px;
+padding:10px;
+background:#fef3c7;
+text-align:center;
+letter-spacing:6px;
+}
+
+
+
+.result{
+background:#fef3c7;
+color:#5c3d00;
+font-weight:bold;
+border:1px solid #e5c07b;
+}
+
+.steps{
+margin-top:10px;
+padding:10px;
+background:#fff8dc;
+border-radius:8px;
+font-size:14px;
+white-space:pre-line;
+border:1px solid #e5c07b;
+}
+
+/* HOME */
+.home-box{
+text-align:center;
+}
+
+.home-box h2{
+font-size:28px;
+margin-bottom:10px;
+color:#7c2d12;
+}
+
+.tagline{
+color:#92400e;
+margin-bottom:20px;
+}
+
+/* FEATURE CARDS */
+.features{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.feature-card{
+background:#fffaf0;
+padding:18px;
+border-radius:12px;
+width:250px;
+cursor:pointer;
+transition:0.3s;
+
+/* LIGHT SHADOW */
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+
+/* BORDER */
+border:1px solid #e5c07b;
+}
+
+.feature-card:hover{
+transform:translateY(-5px);
+background:#fef3c7;
+}
+
+.feature-card h3{
+margin-bottom:8px;
+color:#7c2d12;
+}
+
+/* FOOTER */
+.footer{
+background:black;
+color:gold;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Vedic Prosody Toolkit</h1>
+<p>Ancient Algorithms for Laghu–Guru Analysis</p>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<span onclick="showSection('intro', this)" class="active-tab">Home</span>
+<span onclick="showSection('shloka', this)">Shloka</span>
+<span onclick="showSection('nasta', this)">Nāṣṭa</span>
+<span onclick="showSection('uddishta', this)">Uddiṣṭa</span>
+<span onclick="showSection('meter', this)">Meter</span>
+<span onclick="showSection('game', this)">Game Corner 🎮</span>
+<span onclick="showSection('info', this)">Info</span>
+</div>
+
+<!-- INTRO (UPDATED) -->
+<div id="intro" class="section active">
+<div class="home-box">
+
+<h2>Explore Ancient Indian Algorithms</h2>
+<p class="tagline">
+Analyze Sanskrit poetry using Laghu–Guru patterns, Nāṣṭa and Uddiṣṭa methods.
+</p>
+
+<div class="features">
+
+<div class="feature-card" onclick="showSection('shloka')">
+<h3>Shloka Analyzer</h3>
+<p>Convert Sanskrit verses into Laghu (L) and Guru (G) patterns.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('nasta')">
+<h3>Nāṣṭa Method</h3>
+<p>Generate Laghu-Guru sequences from numbers.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('uddishta')">
+<h3>Uddiṣṭa Method</h3>
+<p>Find the position of a given syllable sequence.</p>
+</div>
+<div class="feature-card" onclick="showSection('meter', this)">
+<h3>Meter Analyzer</h3>
+<p>Detect Sanskrit meter like Anuṣṭubh, Triṣṭubh, Jagatī.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('game', this)">
+<h3>Game Corner 🎮</h3>
+<p>Test your Laghu–Guru skills in an interactive challenge.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- SHLOKA -->
+<div id="shloka" class="section">
+<textarea id="textInput" placeholder="Enter shloka"></textarea>
+<button onclick="convertLG()">Convert</button>
+<div id="out1" class="result"></div>
+<div id="binaryOut" class="result"></div>
+<div id="uddishtaFromShloka" class="result"></div>
+</div>
+
+<!-- NASTA -->
+<div id="nasta" class="section">
+<input id="numInput" placeholder="Enter number">
+<input id="lengthInput" placeholder="Enter length">
+<button onclick="nashta()">Convert</button>
+<div id="out2" class="result"></div>
+</div>
+
+<!-- UDDISHTA -->
+<div id="uddishta" class="section">
+<input id="binInput" placeholder="Enter sequence (0 & 1)">
+<button onclick="uddishta()">Convert</button>
+<div id="out3" class="result"></div>
+</div>
+
+<div id="meter" class="section">
+
+<h2>Chandas (Meter) Analyzer</h2>
+
+<textarea id="meterInput" placeholder="Enter shloka"></textarea>
+
+<button onclick="detectMeter()">Analyze Meter</button>
+
+<p><b>Laghu-Guru Pattern:</b></p>
+<div id="meterLG" class="result"></div>
+
+<p><b>Total Syllables:</b></p>
+<div id="meterCount" class="result"></div>
+
+<p><b>Detected Meter:</b></p>
+<div id="meterResult" class="result"></div>
+<div id="padaBreak" class="steps"></div>
+</div>
+<div id="game" class="section">
+
+<h2>🎮 Laghu-Guru Game</h2>
+
+<p>Type L for Laghu, G for Guru. One mistake = Game Over!</p>
+
+<button onclick="startGame()">Start Game</button>
+
+<p><b>Shloka:</b></p>
+<div id="gameShloka" class="result"></div>
+
+
+<p><b>Your Input:</b></p>
+<input id="gameInput" placeholder="Type L or G" disabled>
+<p><b>Your Progress:</b></p>
+<div id="gameProgress" class="result"></div>
+
+
+
+<p><b>Score:</b></p>
+<div id="gameScore" class="result">0</div>
+
+<p><b>Result:</b></p>
+<div id="gameResult" class="result"></div>
+
+</div>
+
+
+<!-- INFO -->
+<div id="info" class="section">
+
+<!-- SUBTAB BUTTONS -->
+<div class="info-tabs">
+<button onclick="showInfo('info1')">Shloka</button>
+<button onclick="showInfo('info2')">Nāṣṭa</button>
+<button onclick="showInfo('info3')">Uddiṣṭa</button>
+<button onclick="showInfo('info4')">Pingala</button>
+<button onclick="showInfo('info5')">Meter</button>
+</div>
+
+<!-- SHLOKA INFO -->
+<div id="info1" class="info-content active-info">
+
+<h3>Shloka to Laghu-Guru Conversion</h3>
+
+<p>In Sanskrit and Marathi literature, poetic compositions known as shlokas are built using fundamental sound units called akshara (syllables). Each akshara is a unit of pronunciation and plays a key role in maintaining the rhythm and structure of the verse.</p>
+
+<p>The study of these rhythmic patterns is part of an ancient discipline known as Chandas (prosody), which focuses on how syllables are arranged in a systematic and mathematical manner to form poetic meters.</p>
+
+<p>Every syllable (akshara) in a shloka is classified into two types:</p>
+
+<p><b>Laghu (L)</b> — a short syllable<br>
+<b>Guru (G)</b> — a long syllable</p>
+
+<p>A syllable is considered Laghu when it contains short vowels such as अ, इ, उ, ऋ or matras like ि, ु, ृ, े, ो.</p>
+
+<p>A syllable is considered Guru when it contains long vowels such as आ, ई, ऊ, ऐ, औ or matras like ा, ी, ू, ै, ौ.</p>
+
+<p>The conversion must be performed syllable by syllable and not word by word.</p>
+
+<p>Spaces are preserved using double spacing.</p>
+
+<p>This helps identify classical Sanskrit meters such as Anushtubh, Trishtubh, and Jagati.</p>
+
+<p>Thus, this conversion is both linguistic and mathematical, transforming sound into structured symbolic patterns.</p>
+
+</div>
+
+<div id="info2" class="info-content">
+
+<h3>Nāṣṭa Method</h3>
+
+<p>Nāṣṭa is a classical algorithm used to convert numbers into Laghu-Guru sequences.</p>
+
+<p>
+Odd → 0 → (n+1)/2<br>
+Even → 1 → n/2
+</p>
+
+<p><b>Example:</b></p>
+
+<p>
+37 → 0 → 19<br>
+19 → 0 → 10<br>
+10 → 1 → 5<br>
+5 → 0 → 3<br>
+3 → 0 → 2<br>
+2 → 1 → 1
+</p>
+
+<p><b>Final sequence:</b> 001001</p>
+
+<p>This method represents early combinatorics.</p>
+
+</div>
+
+<div id="info3" class="info-content">
+
+<h3>Uddiṣṭa Method</h3>
+
+<p>Uddiṣṭa is the reverse of Nāṣṭa.</p>
+
+<p>Start from 1.</p>
+
+<p>
+1 → ×2<br>
+0 → ×2 −1
+</p>
+
+<p>Ignore trailing zeros.</p>
+
+<p><b>Example:</b></p>
+
+<p>1010100 → 10101</p>
+
+<p>
+1 → 2<br>
+0 → 3<br>
+1 → 6<br>
+0 → 11<br>
+1 → 22
+</p>
+
+<p><b>Final result:</b> 22</p>
+
+<p>This shows early algorithmic thinking.</p>
+
+</div>
+
+<div id="info4" class="info-content">
+
+
+<h3>Pingala and Ancient Indian Mathematics</h3>
+
+<!-- IMAGE ADDED -->
+<div class="pingala-img">
+<img src="https://i.ibb.co/sp0QBkyF/Pingala.png" alt="Pingala">
+</div>
+
+<p>Pingala was an ancient Indian scholar who is believed to have lived around 200 BCE. He is one of the earliest known thinkers to apply mathematical principles to linguistic and poetic analysis.</p>
+
+<h3>Pingala and Ancient Indian Mathematics</h3>
+
+<p>Pingala was an ancient Indian scholar who is believed to have lived around 200 BCE. He is one of the earliest known thinkers to apply mathematical principles to linguistic and poetic analysis.</p>
+
+<p>He is best known for his work <b>Chandaḥśāstra</b>, a foundational text on Sanskrit prosody (Chandas), which studies the structure and rhythm of poetic meters.</p>
+
+<p>In this work, Pingala analyzed how Laghu (short) and Guru (long) syllables combine to form structured patterns in Sanskrit verses.</p>
+
+<p>To systematically study these patterns, he introduced important algorithms such as <b>Nāṣṭa</b> and <b>Uddiṣṭa</b>.</p>
+
+<p>The Nāṣṭa method converts numbers into sequences of Laghu and Guru, while the Uddiṣṭa method converts such sequences back into numerical positions.</p>
+
+<p>These methods together create a complete computational system for handling poetic patterns.</p>
+
+<p>
+Pingala’s representation of Laghu and Guru is often compared to a binary system:<br>
+Laghu = 1<br>
+Guru = 0
+</p>
+
+<p>Although not exactly the same as modern binary, it reflects an early form of digital and algorithmic thinking.</p>
+
+<p>His work also involves combinatorics, where all possible patterns of syllables can be generated systematically.</p>
+
+<p>Pingala’s contributions connect language, mathematics, and logic, making his work highly important in both literature and science.</p>
+
+</div>
+<div id="info5" class="info-content">
+
+<h3>How to Analyze Chandas (Meter)</h3>
+
+<p>
+In Sanskrit prosody, each verse (shloka) is divided into 4 parts called <b>pāda</b>.
+Each pāda contains a fixed number of syllables (aksharas).
+</p>
+
+<p>
+Common meters:
+<br>• <b>Anuṣṭubh</b> → 8 syllables per pāda (8×4 = 32)
+<br>• <b>Triṣṭubh</b> → 11 syllables per pāda (11×4 = 44)
+<br>• <b>Jagatī</b> → 12 syllables per pāda (12×4 = 48)
+</p>
+
+<p>
+Steps:
+<br>1. Convert shloka into Laghu (L) and Guru (G)
+<br>2. Count total syllables
+<br>3. Divide into 4 equal pādas
+<br>4. Identify meter based on syllable count
+</p>
+
+<hr>
+
+<h3>Examples (Divided into Pādas)</h3>
+
+<p><b>Example 1</b><br>
+आप्यायस्व समेतु ते विश्वतः सोम वृष्णियम्।<br>
+भवा वाजस्य संगथे॥<br>
+👉 Pāda split:<br>
+आप्यायस्व समेतु ते | विश्वतः सोम वृष्णियम् |<br>
+भवा वाजस्य संगथे | —<br>
+✅ Anuṣṭubh (8×4)
+</p>
+
+<p><b>Example 2</b><br>
+शन्नो देवीरभिष्टय आपो भवन्तु पीतये।<br>
+शं योरभि स्त्रवन्तु नः<br>
+👉 Pāda split:<br>
+शन्नो देवीरभिष्टय | आपो भवन्तु पीतये |<br>
+शं योरभि स्त्रवन्तु | नः —<br>
+✅ Anuṣṭubh (8×4)
+</p>
+
+<p><b>Example 3</b><br>
+गणानां त्वा गणपतिं हवामहे कविं कवीनामुपमश्रवस्तमम्।<br>
+ज्येष्ठराजं ब्रह्मणां ब्रह्मणस्पत आ नः शृण्वन्नूतिभिः सीदसादनम्॥<br>
+👉 Pāda split:<br>
+गणानां त्वा गणपतिं | हवामहे कविं कवीनाम् |<br>
+ज्येष्ठराजं ब्रह्मणां | ब्रह्मणस्पत आ नः<br>
+❗ Jagatī (approx)
+</p>
+
+<p><b>Example 4</b><br>
+वयं राष्ट्रे जागृयाम पुरोहिताः।<br>
+समग्रा विश्वा भुवनानि पश्येम॥<br>
+👉 Pāda split:<br>
+वयं राष्ट्रे जागृयाम | पुरोहिताः |<br>
+समग्रा विश्वा भुवनानि | पश्येम —<br>
+✅ Anuṣṭubh (8×4)
+</p>
+
+<p><b>Example 5</b><br>
+अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्।<br>
+होतारं रत्नधातमम्<br>
+👉 Pāda split:<br>
+अग्निमीळे पुरोहितं | यज्ञस्य देवमृत्विजम् |<br>
+होतारं रत्नधातमम् | —<br>
+✅ Anuṣṭubh (approx)
+</p>
+
+<p><b>Example 6</b><br>
+यदा यदा हि धर्मस्य ग्लानिर्भवति भारत<br>
+अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्<br>
+👉 Pāda split:<br>
+यदा यदा हि धर्मस्य | ग्लानिर्भवति भारत |<br>
+अभ्युत्थानमधर्मस्य | तदात्मानं सृजाम्यहम्<br>
+✅ Triṣṭubh (11×4)
+</p>
+
+<p><b>Example 7</b><br>
+कर्मण्येवाधिकारस्ते मा फलेषु कदाचन<br>
+मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि<br>
+👉 Pāda split:<br>
+कर्मण्येवाधिकारस्ते | मा फलेषु कदाचन |<br>
+मा कर्मफलहेतुर्भूः | मा ते सङ्गोऽस्त्वकर्मणि<br>
+✅ Triṣṭubh (approx)
+</p>
+
+<p><b>Example 8</b><br>
+विद्या ददाति विनयं विनयाद्याति पात्रताम्<br>
+पात्रत्वात् धनमाप्नोति धनात् धर्मं ततः सुखम्<br>
+👉 Pāda split:<br>
+विद्या ददाति विनयं | विनयाद्याति पात्रताम् |<br>
+पात्रत्वात् धनमाप्नोति | धनात् धर्मं ततः सुखम्<br>
+✅ Triṣṭubh (approx)
+</p>
+
+<p><b>Example 9</b><br>
+सत्यं वद धर्मं चर स्वाध्यायान्मा प्रमदः।<br>
+आचार्याय प्रियं धनमाहृत्य प्रजातन्तुं मा व्यवच्छेत्सीः॥<br>
+👉 Pāda split:<br>
+सत्यं वद धर्मं चर | स्वाध्यायान्मा प्रमदः |<br>
+आचार्याय प्रियं धनम् | आहृत्य प्रजातन्तुम्<br>
+❗ Unknown / Mixed Chandas
+</p>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<p><b>Contact Info </b></p>
+<p>📞 9529557465 | ✉ patilpranjal2431@gmail.com</p>
+<p>GitHub: patilpranjal2431-dev | LinkedIn: pranjal-patil-3682883b6</p>
+<p>April 2026</p>
+</div>
+
+<script>
+
+let progress = [];
+
+function convertLG(){
+let text = document.getElementById("textInput").value;
+
+let lg = "";
+let binary = "";
+
+/* MATRAS */
+const laghuMatra = ['ि','ु','ृ','े','ो'];
+const guruMatra = ['ा','ी','ू','ै','ौ'];
+
+/* VOWELS */
+const laghuVowel = ['अ','इ','उ','ऋ','ए','ओ'];
+const guruVowel = ['आ','ई','ऊ','ऐ','औ'];
+
+/* STEP 1: BUILD AKSHARAS */
+let aksharas = [];
+let current = "";
+
+for (let i = 0; i < text.length; i++) {
+
+    let ch = text[i];
+
+    if (ch === " ") continue;
+
+    current += ch;
+
+    if (ch === '्') continue;
+
+    let next = text[i + 1];
+
+    if (next === '्') continue;
+
+    if (['ा','ि','ी','ु','ू','े','ै','ो','ौ','ृ','ं','ः'].includes(next)) continue;
+
+    aksharas.push(current);
+    current = "";
+}
+
+if (current !== "") aksharas.push(current);
+
+console.log(aksharas); // DEBUG
+
+/* STEP 2: CONVERT TO LG */
+for (let ak of aksharas){
+
+    let isGuru = false;
+
+    for(let g of guruMatra){
+        if(ak.includes(g)) isGuru = true;
+    }
+
+    if(guruVowel.includes(ak[0])){
+        isGuru = true;
+    }
+
+    if(isGuru){
+        lg += "G ";
+        binary += "0";
+    } else {
+        lg += "L ";
+        binary += "1";
+    }
+}
+
+/* SHOW OUTPUT */
+document.getElementById("out1").innerText = lg;
+document.getElementById("binaryOut").innerText = binary;
+
+/* UDDISHTA */
+let result = 1;
+
+binary = binary.replace(/0+$/,'');
+
+for(let ch of binary){
+    if(ch === "0"){
+        result = result * 2;
+    } else {
+        result = result * 2 - 1;
+    }
+}
+
+document.getElementById("uddishtaFromShloka").innerText = result;
+}
+
+
+
+
+function nashta(){
+let n=parseInt(numInput.value),len=parseInt(lengthInput.value);
+let seq=[];
+for(let i=0;i<len;i++){
+if(n%2){seq.push(0);n=(n+1)/2;}
+else{seq.push(1);n=n/2;}
+}
+out2.innerText=seq.join(" ");
+}
+
+function uddishta(){
+let seq=binInput.value.replace(/0+$/,'');
+let r=1;
+for(let c of seq){
+if(c==="1")r*=2;
+else r=r*2-1;
+}
+out3.innerText=r;
+}
+
+function detectMeter(){
+
+let text = document.getElementById("meterInput").value;
+
+let aksharas = [];
+let current = "";
+
+for (let i = 0; i < text.length; i++) {
+
+    let ch = text[i];
+
+    if (ch === " ") continue;
+
+    current += ch;
+
+    // If current char is halant → MUST join next consonant
+    if (ch === '्') continue;
+
+    let next = text[i + 1];
+
+    // If next is halant → don't split (joint coming)
+    if (next === '्') continue;
+
+    // If next is matra → don't split
+    if (['ा','ि','ी','ु','ू','े','ै','ो','ौ','ृ','ं','ः'].includes(next)) continue;
+
+    // Otherwise → end syllable
+    aksharas.push(current);
+    current = "";
+}
+
+if (current !== "") aksharas.push(current);
+
+/* STEP 2: LAGHU GURU */
+let patternArr = [];
+
+const laghuSigns = ['ि','ु','ृ','े','ो'];
+const guruSigns = ['ा','ी','ू','ै','ौ','ं','ः'];
+
+for(let ak of aksharas){
+
+let isGuru = false;
+
+
+/* check matra */
+for(let g of guruSigns){
+if(ak.includes(g)) isGuru = true;
+}
+
+/* long vowels */
+if(['आ','ई','ऊ','ऐ','औ','ए','ओ'].includes(ak[0])){
+isGuru = true;
+}
+
+if(isGuru){
+patternArr.push("G");
+}else{
+patternArr.push("L");
+}
+}
+
+/* DISPLAY PATTERN */
+document.getElementById("meterLG").innerText = patternArr.join(" ");
+
+/* COUNT */
+let count = patternArr.length;
+document.getElementById("meterCount").innerText = count;
+
+/* CHECK PADAS */
+let meter = "";
+let details = "";
+
+if(count % 4 !== 0){
+meter = "⚠️ Cannot divide into 4 pādas";
+document.getElementById("meterResult").innerText = meter;
+return;
+}
+
+let perPada = count / 4;
+
+/* SPLIT */
+let padas = [];
+for(let i=0;i<4;i++){
+padas.push(patternArr.slice(i*perPada,(i+1)*perPada));
+}
+
+/* SHOW PADAS */
+details += "Pāda breakdown:\n";
+padas.forEach((p,i)=>{
+details += `Pāda ${i+1}: ${p.join(" ")}\n`;
+});
+
+/* DETECT */
+if(perPada === 8){
+meter = "✅ Anuṣṭubh (8×4)";
+}
+else if(perPada === 11){
+meter = "✅ Triṣṭubh (11×4)";
+}
+else if(perPada === 12){
+meter = "✅ Jagatī (12×4)";
+}
+else{
+meter = "❌ Unknown meter";
+}
+
+/* OUTPUT */
+document.getElementById("meterResult").innerText = meter;
+document.getElementById("padaBreak").innerText = details;
+
+}
+
+function showSection(id, el){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+
+/* remove active from navbar */
+document.querySelectorAll('.navbar span').forEach(tab=>tab.classList.remove('active-tab'));
+
+/* only apply if element exists (for navbar clicks) */
+if(el){
+    el.classList.add('active-tab');
+}
+}
+function showInfo(id){
+    document.querySelectorAll('.info-content')
+        .forEach(tab => tab.classList.remove('active-info'));
+
+    document.getElementById(id)
+        .classList.add('active-info');
+}
+
+let gamePattern = [];
+let gameIndex = 0;
+let score = 0;
+
+const shlokas = [
+"यदा यदा हि धर्मस्य ग्लानिर्भवति भारत",
+"कर्मण्येवाधिकारस्ते मा फलेषु कदाचन",
+"विद्या ददाति विनयं विनयाद्याति पात्रताम्",
+"शन्नो देवीरभिष्टय आपो भवन्तु पीतये"
+];
+
+function startGame(){
+
+let text = shlokas[Math.floor(Math.random()*shlokas.length)];
+document.getElementById("gameShloka").innerText =text;
+document.getElementById("gameInput").disabled = false;
+document.getElementById("gameInput").focus();
+document.getElementById("gameProgress").innerText = "";
+
+
+let aksharas = [];
+let current = "";
+
+for (let i = 0; i < text.length; i++) {
+
+    let ch = text[i];
+
+    if (ch === " ") continue;
+
+    current += ch;
+
+    // If current char is halant → MUST join next consonant
+    if (ch === '्') continue;
+
+    let next = text[i + 1];
+
+    // If next is halant → don't split (joint coming)
+    if (next === '्') continue;
+
+    // If next is matra → don't split
+    if (['ा','ि','ी','ु','ू','े','ै','ो','ौ','ृ','ं','ः'].includes(next)) continue;
+
+    // Otherwise → end syllable
+    aksharas.push(current);
+    current = "";
+}
+
+if (current !== "") aksharas.push(current);
+
+/* convert to LG */
+gamePattern = [];
+
+const guruSigns = ['ा','ी','ू','े','ै','ो','ौ','ं','ः'];
+
+for(let ak of aksharas){
+
+let isGuru = false;
+
+for(let g of guruSigns){
+if(ak.includes(g)) isGuru = true;
+}
+
+if(['आ','ई','ऊ','ऐ','औ','ए','ओ'].includes(ak[0])){
+isGuru = true;
+}
+
+gamePattern.push(isGuru ? "G" : "L");
+}
+
+/* reset */
+gameIndex = 0;
+score = 0;
+progress = [];
+document.getElementById("gameProgress").innerText = "";
+
+document.getElementById("gameScore").innerText = 0;
+document.getElementById("gameResult").innerText = "";
+
+}
+
+/* listen input */
+const input = document.getElementById("gameInput");
+
+input.addEventListener("input", function () {
+
+let val = this.value.slice(-1).toUpperCase(); // last typed char
+
+if(val !== "L" && val !== "G"){
+    this.value = "";
+    return;
+}
+
+/* check */
+if(val === gamePattern[gameIndex]){
+    progress.push(val);
+    score++;
+    gameIndex++;
+
+    document.getElementById("gameScore").innerText = score;
+    document.getElementById("gameProgress").innerText = progress.join(" ");
+    if(gameIndex === gamePattern.length){
+        document.getElementById("gameResult").innerText =
+        "🏆 Perfect! You completed the shloka!";
+        document.getElementById("gameInput").disabled = true;
+    }
+}
+else{
+    document.getElementById("gameResult").innerText =
+    "❌ Game Over! Score: " + score + "\nCorrect: " + gamePattern.join(" ");
+
+    gamePattern = [];
+    input.disabled = true;
+}
+
+/* CLEAR AFTER PROCESS */
+this.value = "";
+});
+function highlightCurrent(){
+for(let i = 0; i < gamePattern.length; i++){
+    let el = document.getElementById("syllable-" + i);
+
+    if(!el) continue;
+
+    if(i === gameIndex){
+        el.style.background = "#fde68a"; // yellow
+    }
+    else{
+        el.style.background = "transparent";
+    }
+}
+}
+</script>
+
+</body>
+</html>
