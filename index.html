@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vedic Prosody Toolkit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Noto Serif Devanagari',serif;
+background:linear-gradient(rgba(20,15,10,0.75),rgba(20,15,10,0.75)),
+url('https://i.ibb.co/r2LMnVXn/celebrating-ugadi-with-a-flatlay-of-traditions-and-symbols-on-a-soft-background-free-photo.jpg');
+background-size:cover;
+color:#3b2f2f;
+}
+.info-tabs{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.info-tabs button{
+flex:1;
+padding:10px;
+background:#92400e;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.info-content{
+display:none;
+line-height:1.6;
+}
+
+.active-info{
+display:block;
+}
+.pingala-img{
+text-align:center;
+margin:15px 0;
+}
+
+.pingala-img img{
+max-width:180px;
+border-radius:12px;
+border:2px solid #d97706;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+/* HERO */
+.hero{
+text-align:center;
+padding:30px;
+color:#facc15;
+}
+.hero h1{
+font-size:42px;
+margin:0;
+font-family:'Poppins';
+}
+.hero p{color:#fde68a;}
+
+
+/* NAVBAR */
+.navbar{
+display:flex;
+justify-content:center;
+gap:25px;
+background:black;
+padding:12px;
+font-family:'Poppins';
+}
+.navbar span{
+color:#facc15;
+cursor:pointer;
+font-weight:600;
+
+}
+.navbar span:hover{
+color:#fde68a;
+}
+
+.navbar span.active-tab{
+border-bottom:2px solid #facc15;
+}
+
+
+/* SECTION */
+.section{
+display:none;
+max-width:900px;
+margin:25px auto;
+padding:25px;
+border-radius:16px;
+
+/* CLEAN PARCHEMENT LOOK */
+background:#fdf6e3;
+
+/* SOFT SHADOW */
+box-shadow:0 8px 20px rgba(0,0,0,0.3);
+
+/* SUBTLE BORDER */
+border:1px solid #e6d3a3;
+}
+.active{display:block;}
+
+/* INPUT */
+textarea,input{
+width:100%;
+padding:10px;
+margin-top:10px;
+}
+textarea, input{
+background:#fff;
+border:1px solid #d6b36a;
+border-radius:8px;
+}
+
+
+
+
+
+/* BUTTON */
+button{
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#d97706;
+color:white;
+border:none;
+border-radius:8px;
+}
+
+/* RESULT */
+.result{
+margin-top:10px;
+padding:10px;
+background:#fef3c7;
+text-align:center;
+letter-spacing:6px;
+}
+
+
+
+.result{
+background:#fef3c7;
+color:#5c3d00;
+font-weight:bold;
+border:1px solid #e5c07b;
+}
+
+.steps{
+margin-top:10px;
+padding:10px;
+background:#fff8dc;
+border-radius:8px;
+font-size:14px;
+white-space:pre-line;
+border:1px solid #e5c07b;
+}
+
+/* HOME */
+.home-box{
+text-align:center;
+}
+
+.home-box h2{
+font-size:28px;
+margin-bottom:10px;
+color:#7c2d12;
+}
+
+.tagline{
+color:#92400e;
+margin-bottom:20px;
+}
+
+/* FEATURE CARDS */
+.features{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.feature-card{
+background:#fffaf0;
+padding:18px;
+border-radius:12px;
+width:250px;
+cursor:pointer;
+transition:0.3s;
+
+/* LIGHT SHADOW */
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+
+/* BORDER */
+border:1px solid #e5c07b;
+}
+
+.feature-card:hover{
+transform:translateY(-5px);
+background:#fef3c7;
+}
+
+.feature-card h3{
+margin-bottom:8px;
+color:#7c2d12;
+}
+
+/* FOOTER */
+.footer{
+background:black;
+color:gold;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+
+/* ADDED: info tab highlight, notes, verse blocks */
+.info-tabs button.on{background:#7c2d12;}
+.note{font-size:13px;color:#7c2d12;margin:6px 0;}
+.verse{white-space:pre-line;margin:4px 0;}
+.info-content table{border-collapse:collapse;margin:10px 0;width:100%;}
+.info-content th,.info-content td{border:1px solid #e5c07b;padding:6px 10px;text-align:left;}
+.info-content th{background:#fef3c7;}
+.ex{border-top:1px solid #e5c07b;padding-top:8px;margin-top:12px;}
+.label{margin:12px 0 0;font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Vedic Prosody Toolkit</h1>
+<p>Ancient Algorithms for Laghu–Guru Analysis</p>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+<span data-target="intro" onclick="showSection('intro')" class="active-tab">Home</span>
+<span data-target="shloka" onclick="showSection('shloka')">Shloka</span>
+<span data-target="nasta" onclick="showSection('nasta')">Nāṣṭa</span>
+<span data-target="uddishta" onclick="showSection('uddishta')">Uddiṣṭa</span>
+<span data-target="meter" onclick="showSection('meter')">Meter</span>
+<span data-target="game" onclick="showSection('game')">Game Corner 🎮</span>
+<span data-target="info" onclick="showSection('info')">Info</span>
+</div>
+
+<!-- INTRO (UPDATED) -->
+<div id="intro" class="section active">
+<div class="home-box">
+
+<h2>Explore Ancient Indian Algorithms</h2>
+<p class="tagline">
+Analyze Sanskrit poetry using Laghu–Guru patterns, Nāṣṭa and Uddiṣṭa methods.
+</p>
+
+<div class="features">
+
+<div class="feature-card" onclick="showSection('shloka')">
+<h3>Shloka Analyzer</h3>
+<p>Convert Sanskrit verses into Laghu (L) and Guru (G) patterns.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('nasta')">
+<h3>Nāṣṭa Method</h3>
+<p>Generate Laghu-Guru sequences from numbers.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('uddishta')">
+<h3>Uddiṣṭa Method</h3>
+<p>Find the position of a given syllable sequence.</p>
+</div>
+<div class="feature-card" onclick="showSection('meter')">
+<h3>Meter Analyzer</h3>
+<p>Detect Sanskrit meter like Anuṣṭubh, Triṣṭubh, Jagatī.</p>
+</div>
+
+<div class="feature-card" onclick="showSection('game')">
+<h3>Game Corner 🎮</h3>
+<p>Test your Laghu–Guru skills in an interactive challenge.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- SHLOKA -->
+<div id="shloka" class="section">
+<textarea id="textInput" placeholder="Enter shloka (Devanagari)"></textarea>
+<button onclick="convertLG()">Convert</button>
+<p class="label">Laghu–Guru pattern:</p>
+<div id="out1" class="result"></div>
+<p class="label">Binary (Laghu = 1, Guru = 0):</p>
+<div id="binaryOut" class="result"></div>
+<p class="label">Uddiṣṭa row number of this pattern:</p>
+<div id="uddishtaFromShloka" class="result"></div>
+</div>
+
+<!-- NASTA -->
+<div id="nasta" class="section">
+<input id="numInput" placeholder="Enter row number (1 to 2^length)">
+<input id="lengthInput" placeholder="Enter length (number of syllables)">
+<button onclick="runNashta()">Convert</button>
+<div id="out2" class="result"></div>
+<div id="steps2" class="steps" style="display:none"></div>
+</div>
+
+<!-- UDDISHTA -->
+<div id="uddishta" class="section">
+<input id="binInput" placeholder="Enter sequence (0 &amp; 1, or L &amp; G)">
+<button onclick="runUddishta()">Convert</button>
+<div id="out3" class="result"></div>
+<div id="steps3" class="steps" style="display:none"></div>
+</div>
+
+<div id="meter" class="section">
+
+<h2>Chandas (Meter) Analyzer</h2>
+<p class="note">Matches the total syllable count: 24 Gāyatrī · 32 Anuṣṭubh · 44 Triṣṭubh · 48 Jagatī.</p>
+
+<textarea id="meterInput" placeholder="Enter shloka"></textarea>
+
+<button onclick="detectMeter()">Analyze Meter</button>
+
+<p><b>Laghu-Guru Pattern:</b></p>
+<div id="meterLG" class="result"></div>
+
+<p><b>Total Syllables:</b></p>
+<div id="meterCount" class="result"></div>
+
+<p><b>Detected Meter:</b></p>
+<div id="meterResult" class="result"></div>
+<div id="padaBreak" class="steps"></div>
+</div>
+<div id="game" class="section">
+
+<h2>🎮 Laghu-Guru Game</h2>
+
+<p>Type L for Laghu, G for Guru. One mistake = Game Over!</p>
+
+<button onclick="startGame()">Start Game</button>
+
+<p><b>Shloka:</b></p>
+<div id="gameShloka" class="result"></div>
+
+
+<p><b>Your Input:</b></p>
+<input id="gameInput" placeholder="Type L or G" disabled>
+<p><b>Your Progress:</b></p>
+<div id="gameProgress" class="result"></div>
+
+
+
+<p><b>Score:</b></p>
+<div id="gameScore" class="result">0</div>
+
+<p><b>Result:</b></p>
+<div id="gameResult" class="result"></div>
+
+</div>
+
+
+<!-- INFO -->
+<div id="info" class="section">
+
+<!-- SUBTAB BUTTONS -->
+<div class="info-tabs">
+<button data-info="info1" class="on" onclick="showInfo('info1')">Shloka</button>
+<button data-info="info2" onclick="showInfo('info2')">Nāṣṭa</button>
+<button data-info="info3" onclick="showInfo('info3')">Uddiṣṭa</button>
+<button data-info="info4" onclick="showInfo('info4')">Pingala</button>
+<button data-info="info5" onclick="showInfo('info5')">Meter</button>
+</div>
+
+<!-- SHLOKA INFO -->
+<div id="info1" class="info-content active-info">
+
+<h3>Shloka to Laghu-Guru Conversion</h3>
+
+<p>Verses in Sanskrit are built from syllables (akshara). The study of how these syllables are arranged is called Chandas (prosody). Every syllable is either <b>Laghu (L)</b>, light, or <b>Guru (G)</b>, heavy.</p>
+
+<p><b>Laghu</b> — the vowel is short: अ, इ, उ, ऋ, or the matras ि, ु, ृ (or no matra, which carries the short अ), and nothing below makes it heavy.</p>
+
+<p><b>Guru</b> — any one of these is enough:<br>
+1. The vowel is long: आ, ई, ऊ, ॠ, ए, ऐ, ओ, औ, or the matras ा, ी, ू, ॄ, े, ै, ो, ौ. (ए and ओ are always long.)<br>
+2. The syllable carries anusvāra (ं) or visarga (ः).<br>
+3. The syllable is followed by a conjunct, meaning two or more consonants before the next vowel. This also works across a word boundary, so धर्मस्य makes the syllable before स्य heavy.<br>
+4. It is the last syllable and is closed by a consonant with halant (e.g. the म् in यम्).</p>
+
+<p>Steps: (1) split the verse into syllables by their vowels, ignoring spaces and daṇḍas; (2) decide Laghu or Guru for each using the rules above; (3) write the pattern; (4) write the binary form with Laghu = 1 and Guru = 0.</p>
+
+<p><b>Example:</b> यदा यदा हि धर्मस्य</p>
+<p class="steps">Syllables: य | दा | य | दा | हि | धर् | म | स्य
+Pattern: L G L G L G G L
+(दा, दा = long ā; धर् = closed by र्; म = followed by the conjunct स्य)
+Binary: 1 0 1 0 1 0 0 1
+Uddiṣṭa row number of this pattern: 150</p>
+
+<p>Spaces are ignored. Only syllables are counted, not words.</p>
+
+</div>
+
+<div id="info2" class="info-content">
+
+<h3>Nāṣṭa Method</h3>
+
+<p>Nāṣṭa turns a row number into a Laghu-Guru sequence of a given length. Start from the row number n and repeat once per syllable:</p>
+
+<p>
+n is odd → write Guru (0), then n = (n + 1) / 2<br>
+n is even → write Laghu (1), then n = n / 2
+</p>
+
+<p>Valid row numbers for a sequence of length L are 1 to 2<sup>L</sup>. Row 1 is all Guru and row 2<sup>L</sup> is all Laghu.</p>
+
+<p><b>Example:</b> row 37, length 6</p>
+
+<p class="steps">37 is odd → 0 (G) → (37 + 1) / 2 = 19
+19 is odd → 0 (G) → (19 + 1) / 2 = 10
+10 is even → 1 (L) → 10 / 2 = 5
+5 is odd → 0 (G) → (5 + 1) / 2 = 3
+3 is odd → 0 (G) → (3 + 1) / 2 = 2
+2 is even → 1 (L) → 2 / 2 = 1</p>
+
+<p><b>Final sequence:</b> 001001 = G G L G G L</p>
+
+<p><b>All rows for length 2:</b> row 1 = GG, row 2 = LG, row 3 = GL, row 4 = LL. This lists every possible pattern exactly once, which is early combinatorics.</p>
+
+</div>
+
+<div id="info3" class="info-content">
+
+<h3>Uddiṣṭa Method</h3>
+
+<p>Uddiṣṭa is the exact reverse of Nāṣṭa: it turns a Laghu-Guru sequence back into its row number.</p>
+
+<p>Start with 1 and read the sequence <b>from right to left</b> (last syllable first):</p>
+
+<p>
+Laghu (1) → ×2<br>
+Guru (0) → ×2 − 1
+</p>
+
+<p><b>Example:</b> 001001 (the result of the Nāṣṭa example)</p>
+
+<p class="steps">Start: 1
+6th digit 1 → 1 × 2 = 2
+5th digit 0 → 2 × 2 − 1 = 3
+4th digit 0 → 3 × 2 − 1 = 5
+3rd digit 1 → 5 × 2 = 10
+2nd digit 0 → 10 × 2 − 1 = 19
+1st digit 0 → 19 × 2 − 1 = 37</p>
+
+<p><b>Final result:</b> 37, which brings us back to the Nāṣṭa input.</p>
+
+<p><b>Note on trailing zeros:</b> Guru at the end of the sequence is processed first, and 1 × 2 − 1 = 1, so it changes nothing. That is why 1010100 gives the same row number as 10101: both give 22.</p>
+
+</div>
+
+<div id="info4" class="info-content">
+
+<h3>Pingala and Ancient Indian Mathematics</h3>
+
+<div class="pingala-img">
+<img src="https://i.ibb.co/sp0QBkyF/Pingala.png" alt="Pingala">
+</div>
+
+<p>Pingala was an ancient Indian scholar who is believed to have lived around 200 BCE. He is one of the earliest known thinkers to apply mathematical principles to linguistic and poetic analysis.</p>
+
+<p>He is best known for his work <b>Chandaḥśāstra</b>, a foundational text on Sanskrit prosody (Chandas), which studies the structure and rhythm of poetic meters.</p>
+
+<p>In this work, Pingala analyzed how Laghu (short) and Guru (long) syllables combine to form structured patterns in Sanskrit verses.</p>
+
+<p>To systematically study these patterns, he introduced important algorithms such as <b>Nāṣṭa</b> and <b>Uddiṣṭa</b>.</p>
+
+<p>The Nāṣṭa method converts numbers into sequences of Laghu and Guru, while the Uddiṣṭa method converts such sequences back into numerical positions.</p>
+
+<p>These methods together create a complete computational system for handling poetic patterns.</p>
+
+<p>
+This toolkit represents Laghu and Guru in the way often compared to a binary system:<br>
+Laghu = 1<br>
+Guru = 0
+</p>
+
+<p>Although not exactly the same as modern binary, it reflects an early form of digital and algorithmic thinking.</p>
+
+<p>His work also involves combinatorics, where all possible patterns of syllables can be generated systematically.</p>
+
+<p>Pingala’s contributions connect language, mathematics, and logic, making his work highly important in both literature and science.</p>
+
+</div>
+
+<div id="info5" class="info-content">
+
+<h3>How to Analyze Chandas (Meter)</h3>
+
+<p>A shloka is divided into parts called <b>pāda</b>. Each pāda has a fixed number of syllables. This tool identifies a meter from the <b>total syllable count</b>:</p>
+
+<table>
+<tr><th>Meter</th><th>Pādas × syllables</th><th>Total</th></tr>
+<tr><td>Gāyatrī</td><td>3 × 8</td><td>24</td></tr>
+<tr><td>Anuṣṭubh</td><td>4 × 8</td><td>32</td></tr>
+<tr><td>Triṣṭubh</td><td>4 × 11</td><td>44</td></tr>
+<tr><td>Jagatī</td><td>4 × 12</td><td>48</td></tr>
+</table>
+
+<p>
+Steps:
+<br>1. Convert the shloka into Laghu (L) and Guru (G)
+<br>2. Count the total syllables
+<br>3. Match the total to the table above
+<br>4. Split the pattern into pādas of the matching size
+</p>
+
+<p class="note">This is an approximation. It checks the syllable count only, not the Laghu-Guru pattern inside each pāda. Real Vedic verses can differ by a syllable or two, and prose will not match any meter.</p>
+
+<hr>
+
+<h3>Examples (computed by this tool)</h3>
+<p class="note">These are generated live by the same code as the Meter tab, so they always agree with it.</p>
+<div id="meterExamples"></div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<p><b>Contact Info </b></p>
+<p>📞 9529557465 | ✉ patilpranjal2431@gmail.com</p>
+<p>GitHub: patilpranjal2431-dev | LinkedIn: pranjal-patil-3682883b6</p>
+<p>April 2026</p>
+</div>
+
+<script>
+/* =====================================================
+   SHARED CORE (used by Shloka, Meter, Game and Info)
+   ===================================================== */
+const $ = id => document.getElementById(id);
+
+const VOWEL_LONG  = new Set(['आ','ई','ऊ','ॠ','ॡ','ए','ऐ','ओ','औ']);
+const VOWEL_SHORT = new Set(['अ','इ','उ','ऋ','ऌ']);
+const MATRA_LONG  = new Set(['ा','ी','ू','ॄ','ॣ','े','ै','ो','ौ']);
+const MATRA_SHORT = new Set(['ि','ु','ृ','ॢ']);
+const HALANT = '्', ANUSVARA = 'ं', VISARGA = 'ः', NUKTA = '़';
+
+function isConsonant(ch){
+  if(!ch) return false;
+  const c = ch.codePointAt(0);
+  return (c >= 0x0915 && c <= 0x0939) || (c >= 0x0958 && c <= 0x095F);
+}
+
+/* Split text into syllables. Each syllable remembers:
+   long  - has a long vowel
+   anus  - carries anusvara / visarga
+   after - consonants between this vowel and the next vowel (conjunct check) */
+function syllabify(text){
+  const syl = [];
+  const chars = Array.from(text.normalize('NFC'));
+  let i = 0;
+  while(i < chars.length){
+    const ch = chars[i];
+
+    if(VOWEL_LONG.has(ch) || VOWEL_SHORT.has(ch)){
+      syl.push({long: VOWEL_LONG.has(ch), anus: false, after: 0});
+      i++; continue;
+    }
+
+    if(isConsonant(ch)){
+      if(syl.length) syl[syl.length - 1].after++;
+      i++;
+      if(chars[i] === NUKTA) i++;
+      if(chars[i] === HALANT){ i++; continue; }      // consonant with no vowel
+      const s = {long: false, anus: false, after: 0};
+      if(MATRA_LONG.has(chars[i])){ s.long = true; i++; }
+      else if(MATRA_SHORT.has(chars[i])){ i++; }
+      syl.push(s);
+      continue;
+    }
+
+    if((ch === ANUSVARA || ch === VISARGA) && syl.length){
+      syl[syl.length - 1].anus = true;
+    }
+    i++;                                              // spaces, dandas, avagraha, etc.
+  }
+  return syl;
+}
+
+/* Guru if: long vowel, anusvara/visarga, followed by a conjunct,
+   or the last syllable closed by a consonant. Otherwise Laghu. */
+function laghuGuru(text){
+  const syl = syllabify(text);
+  return syl.map((s, i) => {
+    const last = i === syl.length - 1;
+    return (s.long || s.anus || s.after >= 2 || (last && s.after >= 1)) ? 'G' : 'L';
+  });
+}
+
+/* Nashta: row number -> sequence (Laghu = 1, Guru = 0) */
+function nashtaSeq(n, len){
+  const seq = [];
+  for(let i = 0; i < len; i++){
+    if(n % 2n === 1n){ seq.push(0); n = (n + 1n) / 2n; }
+    else             { seq.push(1); n = n / 2n; }
+  }
+  return seq;
+}
+
+/* Uddishta: sequence -> row number. Read RIGHT TO LEFT. */
+function uddishtaRow(bits){
+  let r = 1n;
+  for(let i = bits.length - 1; i >= 0; i--){
+    r = bits[i] === 1 ? r * 2n : r * 2n - 1n;
+  }
+  return r;
+}
+
+/* Meters recognised by total syllable count */
+const METERS = {
+  24: {name: 'Gāyatrī',  padas: 3, size: 8},
+  32: {name: 'Anuṣṭubh', padas: 4, size: 8},
+  44: {name: 'Triṣṭubh', padas: 4, size: 11},
+  48: {name: 'Jagatī',   padas: 4, size: 12}
+};
+
+function analyzeMeter(text){
+  const pattern = laghuGuru(text);
+  const meter = METERS[pattern.length] || null;
+  const padas = [];
+  if(meter){
+    for(let i = 0; i < meter.padas; i++){
+      padas.push(pattern.slice(i * meter.size, (i + 1) * meter.size));
+    }
+  }
+  return {pattern, count: pattern.length, meter, padas};
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+  document.querySelectorAll('.navbar span').forEach(t =>
+    t.classList.toggle('active-tab', t.dataset.target === id));
+}
+
+function showInfo(id){
+  document.querySelectorAll('.info-content').forEach(t => t.classList.remove('active-info'));
+  $(id).classList.add('active-info');
+  document.querySelectorAll('.info-tabs button').forEach(b =>
+    b.classList.toggle('on', b.dataset.info === id));
+}
+
+/* =====================================================
+   1. SHLOKA -> LAGHU-GURU
+   ===================================================== */
+function convertLG(){
+  const p = laghuGuru($('textInput').value);
+  if(!p.length){
+    $('out1').innerText = 'Please enter a Devanagari shloka.';
+    $('binaryOut').innerText = '';
+    $('uddishtaFromShloka').innerText = '';
+    return;
+  }
+  const bits = p.map(x => x === 'L' ? 1 : 0);
+  $('out1').innerText = p.join(' ');
+  $('binaryOut').innerText = bits.join('');
+  $('uddishtaFromShloka').innerText = uddishtaRow(bits).toString();
+}
+
+/* =====================================================
+   2. NASHTA  (row number -> sequence)
+   ===================================================== */
+function runNashta(){
+  const nStr = $('numInput').value.trim();
+  const lStr = $('lengthInput').value.trim();
+  const box = $('steps2');
+  box.style.display = 'none';
+
+  if(!/^\d+$/.test(nStr) || !/^\d+$/.test(lStr)){
+    $('out2').innerText = 'Enter whole numbers for both fields.';
+    return;
+  }
+  let n = BigInt(nStr);
+  const len = parseInt(lStr, 10);
+  if(len < 1 || len > 64){
+    $('out2').innerText = 'Length must be between 1 and 64.';
+    return;
+  }
+  const max = 1n << BigInt(len);
+  if(n < 1n || n > max){
+    $('out2').innerText = 'Row number must be between 1 and ' + max.toString() + '.';
+    return;
+  }
+
+  const lines = [];
+  const seq = [];
+  for(let i = 0; i < len; i++){
+    if(n % 2n === 1n){
+      const next = (n + 1n) / 2n;
+      lines.push(n + ' is odd → 0 (G) → (' + n + ' + 1) / 2 = ' + next);
+      seq.push(0); n = next;
+    } else {
+      const next = n / 2n;
+      lines.push(n + ' is even → 1 (L) → ' + n + ' / 2 = ' + next);
+      seq.push(1); n = next;
+    }
+  }
+  $('out2').innerText = seq.join(' ');
+  box.innerText = lines.join('\n') + '\nPattern: ' + seq.map(b => b ? 'L' : 'G').join(' ');
+  box.style.display = 'block';
+}
+
+/* =====================================================
+   3. UDDISHTA  (sequence -> row number)
+   ===================================================== */
+function runUddishta(){
+  const raw = $('binInput').value.toUpperCase().replace(/[\s,]/g, '');
+  const box = $('steps3');
+  box.style.display = 'none';
+
+  if(!raw || !/^[01LG]+$/.test(raw)){
+    $('out3').innerText = 'Enter only 0 and 1 (or L and G).';
+    return;
+  }
+  const bits = Array.from(raw).map(c => (c === '1' || c === 'L') ? 1 : 0);
+
+  let r = 1n;
+  const lines = ['Start: 1  (read right to left)'];
+  for(let i = bits.length - 1; i >= 0; i--){
+    const before = r;
+    if(bits[i] === 1){
+      r = r * 2n;
+      lines.push('digit ' + (i + 1) + ' = 1 (L) → ' + before + ' × 2 = ' + r);
+    } else {
+      r = r * 2n - 1n;
+      lines.push('digit ' + (i + 1) + ' = 0 (G) → ' + before + ' × 2 − 1 = ' + r);
+    }
+  }
+  $('out3').innerText = r.toString();
+  box.innerText = lines.join('\n');
+  box.style.display = 'block';
+}
+
+/* =====================================================
+   4. METER
+   ===================================================== */
+function detectMeter(){
+  const r = analyzeMeter($('meterInput').value);
+
+  if(!r.count){
+    $('meterLG').innerText = '';
+    $('meterCount').innerText = '';
+    $('meterResult').innerText = 'Please enter a Devanagari shloka.';
+    $('padaBreak').innerText = '';
+    return;
+  }
+
+  $('meterLG').innerText = r.pattern.join(' ');
+  $('meterCount').innerText = r.count;
+
+  if(r.meter){
+    $('meterResult').innerText = '✅ ' + r.meter.name + ' (' + r.meter.padas + '×' + r.meter.size + ')';
+    $('padaBreak').innerText = 'Pāda breakdown:\n' +
+      r.padas.map((p, i) => 'Pāda ' + (i + 1) + ': ' + p.join(' ')).join('\n');
+  } else {
+    $('meterResult').innerText = '❌ No match for ' + r.count + ' syllables';
+    $('padaBreak').innerText = 'Supported totals: 24 Gāyatrī, 32 Anuṣṭubh, 44 Triṣṭubh, 48 Jagatī.\n' +
+      'The text may be prose, an irregular verse, or incomplete.';
+  }
+}
+
+/* =====================================================
+   5. GAME
+   ===================================================== */
+let gamePattern = [];
+let gameIndex = 0;
+let score = 0;
+let progress = [];
+
+const shlokas = [
+  "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत",
+  "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन",
+  "विद्या ददाति विनयं विनयाद्याति पात्रताम्",
+  "शन्नो देवीरभिष्टय आपो भवन्तु पीतये"
+];
+
+function startGame(){
+  const text = shlokas[Math.floor(Math.random() * shlokas.length)];
+  $('gameShloka').innerText = text;
+  gamePattern = laghuGuru(text);
+  gameIndex = 0;
+  score = 0;
+  progress = [];
+  $('gameProgress').innerText = '';
+  $('gameScore').innerText = 0;
+  $('gameResult').innerText = '';
+  const inp = $('gameInput');
+  inp.disabled = false;
+  inp.value = '';
+  inp.focus();
+}
+
+$('gameInput').addEventListener('input', function(){
+  const val = this.value.slice(-1).toUpperCase();
+  this.value = '';
+  if(val !== 'L' && val !== 'G') return;
+  if(!gamePattern.length) return;
+
+  if(val === gamePattern[gameIndex]){
+    progress.push(val);
+    score++;
+    gameIndex++;
+    $('gameScore').innerText = score;
+    $('gameProgress').innerText = progress.join(' ');
+    if(gameIndex === gamePattern.length){
+      $('gameResult').innerText = '🏆 Perfect! You completed the shloka!';
+      this.disabled = true;
+    }
+  } else {
+    $('gameResult').innerText =
+      '❌ Game Over! Score: ' + score + '\nCorrect: ' + gamePattern.join(' ');
+    gamePattern = [];
+    this.disabled = true;
+  }
+});
+
+/* =====================================================
+   6. INFO: meter examples, computed live by the same code
+   ===================================================== */
+const meterExamples = [
+  {src: 'Ṛgveda 1.91.16',
+   text: 'आप्यायस्व समेतु ते विश्वतः सोम वृष्णियम्।\nभवा वाजस्य संगथे॥'},
+  {src: 'Ṛgveda 10.9.4',
+   text: 'शन्नो देवीरभिष्टय आपो भवन्तु पीतये।\nशं योरभि स्त्रवन्तु नः'},
+  {src: 'Ṛgveda 2.23.1',
+   text: 'गणानां त्वा गणपतिं हवामहे कविं कवीनामुपमश्रवस्तमम्।\nज्येष्ठराजं ब्रह्मणां ब्रह्मणस्पत आ नः शृण्वन्नूतिभिः सीदसादनम्॥'},
+  {src: 'Source not verified',
+   note: 'The count matches Gāyatrī, but this text may not be a real verse, so a count-only match can mislead.',
+   text: 'वयं राष्ट्रे जागृयाम पुरोहिताः।\nसमग्रा विश्वा भुवनानि पश्येम॥'},
+  {src: 'Ṛgveda 1.1.1',
+   text: 'अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्।\nहोतारं रत्नधातमम्'},
+  {src: 'Bhagavad Gītā 4.7',
+   text: 'यदा यदा हि धर्मस्य ग्लानिर्भवति भारत\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्'},
+  {src: 'Bhagavad Gītā 2.47',
+   text: 'कर्मण्येवाधिकारस्ते मा फलेषु कदाचन\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि'},
+  {src: 'Subhāṣita',
+   text: 'विद्या ददाति विनयं विनयाद्याति पात्रताम्\nपात्रत्वात् धनमाप्नोति धनात् धर्मं ततः सुखम्'},
+  {src: 'Taittirīya Upaniṣad (prose)',
+   text: 'सत्यं वद धर्मं चर स्वाध्यायान्मा प्रमदः।\nआचार्याय प्रियं धनमाहृत्य प्रजातन्तुं मा व्यवच्छेत्सीः॥'}
+];
+
+function renderMeterExamples(){
+  const box = $('meterExamples');
+  meterExamples.forEach((e, i) => {
+    const r = analyzeMeter(e.text);
+    const wrap = document.createElement('div');
+    wrap.className = 'ex';
+
+    const h = document.createElement('p');
+    const b = document.createElement('b');
+    b.textContent = 'Example ' + (i + 1);
+    h.appendChild(b);
+    h.appendChild(document.createTextNode(' (' + e.src + ')'));
+    wrap.appendChild(h);
+
+    const v = document.createElement('p');
+    v.className = 'verse';
+    v.textContent = e.text;
+    wrap.appendChild(v);
+
+    const res = document.createElement('p');
+    res.textContent = r.meter
+      ? 'Syllables: ' + r.count + ' → ✅ ' + r.meter.name + ' (' + r.meter.padas + '×' + r.meter.size + ')'
+      : 'Syllables: ' + r.count + ' → ❌ no match (prose or irregular)';
+    wrap.appendChild(res);
+
+    if(r.meter){
+      const d = document.createElement('div');
+      d.className = 'steps';
+      d.textContent = r.padas.map((p, k) => 'Pāda ' + (k + 1) + ': ' + p.join(' ')).join('\n');
+      wrap.appendChild(d);
+    }
+    if(e.note){
+      const n = document.createElement('p');
+      n.className = 'note';
+      n.textContent = e.note;
+      wrap.appendChild(n);
+    }
+    box.appendChild(wrap);
+  });
+}
+renderMeterExamples();
+
+</script>
+
+</body>
+</html>
