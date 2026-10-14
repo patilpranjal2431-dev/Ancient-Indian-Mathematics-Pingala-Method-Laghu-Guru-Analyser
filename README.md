@@ -70,22 +70,8 @@ cd Ancient-Indian-Mathematics-Pingala-Method-Laghu-Guru-Analyser
 2. Read the Laghu–Guru pattern and the detected meter.
 3. Use the Nāṣṭa and Uddiṣṭa sections to look up a pattern from a row number, or a row number from a pattern.
 
-_Add 1–2 screenshots here, e.g. `![Analyser screenshot](screenshot.png)`._
 
----
 
-## Testing
-
-_List a few cases you have checked, for example:_
-
-- Row 1 for *n* = 3 is all Guru, and row 8 is all Laghu.
-- Nāṣṭa(Uddiṣṭa(p)) returns the original pattern *p* for every pattern of length 1 to 8.
-- Known Anuṣṭubh and Triṣṭubh verses are detected correctly.
-
-## Limitations and ideas for improvement
-
-- _Be honest here: for example, handling of conjunct consonants, anusvāra/visarga, or edge cases in meter detection._
-- Possible extensions: more meters, Mātrā-based meters, a Prastāra table viewer, and automated tests.
 
 ## References
 
